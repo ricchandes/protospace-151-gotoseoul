@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ProtospacesControllerTest < ActionDispatch::IntegrationTest
+class PrototypesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
