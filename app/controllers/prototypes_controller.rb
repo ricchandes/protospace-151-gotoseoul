@@ -1,16 +1,16 @@
 class PrototypesController < ApplicationController
   def new
-    @protospace = Protospace.new
+    @prototype = Prototype.new
   end 
    
    def create 
-    Protospace.create(protospace_params) 
+    Prototype.create(prototype_params) 
     redirect_to '/'
    end
    
    
     private 
-    def protospace_params
+    def prototype_params
       params.require(:prototype).permit(:name, :image, :catchcopy,:concept)
     end
   
