@@ -4,9 +4,13 @@ class PrototypesController < ApplicationController
   end 
    
    def create 
-    Prototype.create(prototype_params) 
+   @prototype = Prototype.create(prototype_params) 
+    if @prototype.save
     redirect_to '/'
+   else
+    render :new, status: :unprocessable_entity
    end
+  end
    
    
     private 
