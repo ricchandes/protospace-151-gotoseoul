@@ -17,4 +17,7 @@ class PrototypesController < ApplicationController
   def prototype_params
     params.require(:prototype).permit(:name, :image, :catchcopy, :concept)
   end
+  
+  def index
+  end
 end
