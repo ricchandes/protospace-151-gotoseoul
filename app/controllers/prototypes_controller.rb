@@ -18,9 +18,15 @@ class PrototypesController < ApplicationController
 
   def destroy
     prototype = Prototype.find(params[:id])
+    if user_signed_in?
     prototype.destroy
     redirect_to root_path
+    else
+      redirect_to user_session_path
+    end
   end
+
+
 
   private
 
@@ -28,6 +34,4 @@ class PrototypesController < ApplicationController
     params.require(:prototype).permit(:name, :image, :catchcopy, :concept).merge(user_id: current_user.id)
   end
   
-  def index
-  end
 end
