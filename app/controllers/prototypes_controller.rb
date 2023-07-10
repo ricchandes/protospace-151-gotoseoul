@@ -1,5 +1,9 @@
 class PrototypesController < ApplicationController
   def new
+        unless user_signed_in?
+      redirect_to  user_session_path
+    end
+
     @prototype = Prototype.new
   end
 
