@@ -1,9 +1,14 @@
 class PrototypesController < ApplicationController
-  def new
-        unless user_signed_in?
-      redirect_to  user_session_path
-    end
 
+  def index
+    @prototype = Prototype.includes(:user)
+  end
+
+
+  def new
+   unless user_signed_in?
+    redirect_to  user_session_path
+   end
     @prototype = Prototype.new
   end
 
@@ -14,25 +19,6 @@ class PrototypesController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def show
-    @prototype = Prototype.find(params[:id])
-  end
-
-  def destroy
-    prototype = Prototype.find(params[:id])
-    if user_signed_in?
-    prototype.destroy
-    redirect_to root_path
-    else
-      redirect_to user_session_path
-    end
-  end
-
-
-  def index
-    @prototype = Prototype.all
   end
 
   def edit
@@ -51,6 +37,21 @@ class PrototypesController < ApplicationController
       redirect_to prototype_path
     else
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+
+  def show
+    @prototype = Prototype.find(params[:id])
+  end
+
+  def destroy
+    prototype = Prototype.find(params[:id])
+    if user_signed_in?
+    prototype.destroy
+    redirect_to root_path
+    else
+      redirect_to user_session_path
     end
   end
 
