@@ -1,9 +1,10 @@
 class PrototypesController < ApplicationController
-  def new
-        unless user_signed_in?
-      redirect_to  user_session_path
-    end
+  def index
+    @prototype = Prototype.includes(:user)
+  end
 
+  def new
+    redirect_to user_session_path unless user_signed_in?
     @prototype = Prototype.new
   end
 
@@ -16,33 +17,13 @@ class PrototypesController < ApplicationController
     end
   end
 
-  def show
-    @prototype = Prototype.find(params[:id])
-  end
-
-  def destroy
-    prototype = Prototype.find(params[:id])
-    if user_signed_in?
-    prototype.destroy
-    redirect_to root_path
-    else
-      redirect_to user_session_path
-    end
-  end
-
-
-  def index
-    @prototype = Prototype.all
-  end
-
   def edit
     @prototype = Prototype.find(params[:id])
-    if user_signed_in? &&current_user.id == @prototype.user_id
+    if user_signed_in? && current_user.id == @prototype.user_id
     else
       redirect_to new_user_session_path
     end
   end
-  
 
   def update
     @prototype = Prototype.find(params[:id])
@@ -54,14 +35,23 @@ class PrototypesController < ApplicationController
     end
   end
 
+  def show
+    @prototype = Prototype.find(params[:id])
+  end
 
+  def destroy
+    prototype = Prototype.find(params[:id])
+    if user_signed_in?
+      prototype.destroy
+      redirect_to root_path
+    else
+      redirect_to user_session_path
+    end
+  end
 
   private
 
   def prototype_params
     params.require(:prototype).permit(:name, :image, :catchcopy, :concept).merge(user_id: current_user.id)
   end
-  
-
-
 end
