@@ -17,6 +17,14 @@ class PrototypesController < ApplicationController
     end
   end
 
+  def show
+    @prototype = Prototype.find(params[:id])
+    @comment = Comment.new
+    @comments = @prototype.comments.includes(:user)
+
+  end
+
+ 
   def edit
     @prototype = Prototype.find(params[:id])
     if user_signed_in? && current_user.id == @prototype.user_id
@@ -35,9 +43,6 @@ class PrototypesController < ApplicationController
     end
   end
 
-  def show
-    @prototype = Prototype.find(params[:id])
-  end
 
   def destroy
     prototype = Prototype.find(params[:id])
