@@ -52,7 +52,7 @@
   </div>
         <ul class="comments_lists">
             <li class="comments_list">
-               <%= @comments.each do |comment| %>
+               <% @comments.each do |comment| %>
                <p>
                  <strong><%= link_to comment.user.name, "/users/#{comment.user_id}" %>：</strong>
                  <%= comment.text %>
