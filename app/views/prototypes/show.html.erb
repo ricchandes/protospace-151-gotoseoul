@@ -4,7 +4,7 @@
       <p class="prototype__hedding">
         <%= @prototype.name %>
       </p>
-      <%= link_to "by #{@prototype.user.name}", root_path, class: :prototype__user %>
+      <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user.id), class: :prototype__user %>
     <% if user_signed_in? && current_user.id == @prototype.user_id %>
         <div class="prototype__manage">
 
@@ -36,11 +36,13 @@
       </div>
 
       <div class="prototype__comments">
+
         <% if user_signed_in? %>
            <%= form_with model: [@prototype, @comment], local: true do |f|%>
             <div class="field">
                <%= f.label :text, "コメント" %><br />
                <%= f.text_field :text, id:"comment_content" %>
+
             </div>
             <div class="actions">
                <%= f.submit "送信する", class: :form__btn  %>
@@ -50,6 +52,7 @@
         <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
         <% end %>
   </div>
+
         <ul class="comments_lists">
             <li class="comments_list">
                <% @comments.each do |comment| %>
